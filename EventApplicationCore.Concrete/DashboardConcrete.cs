@@ -19,7 +19,8 @@ namespace EventApplicationCore.Concrete
 
         public List<VenueModel> GetList(DateTime date,string location)
 
-        { 
+        {
+            var tes = _context.Venue.Where(a => a.Location.Contains(location));
                 var listofcities = (from venue in _context.Venue
                                     join booking in _context.BookingVenue on venue.VenueID equals booking.VenueID into bookings                            
                                     from booking in bookings.DefaultIfEmpty()

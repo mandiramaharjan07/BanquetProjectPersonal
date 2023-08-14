@@ -13,7 +13,7 @@ using EventApplicationCore.Library;
 
 namespace EventApplicationCore.Controllers
 {
-    [ValidateUserSession]
+ 
     public class CustomerController : Controller
     {
         private readonly ILogin _ILogin;
@@ -37,6 +37,7 @@ namespace EventApplicationCore.Controllers
         }
 
         [HttpGet]
+        [ValidateUserSession]
         public IActionResult ChangePassword()
         {
             return View(new ChangePasswordModel());
@@ -44,6 +45,7 @@ namespace EventApplicationCore.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateUserSession]
         public IActionResult ChangePassword(ChangePasswordModel ChangePasswordModel)
         {
             if (!ModelState.IsValid)

@@ -23,7 +23,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="VenueID">Venue Type</label>
-               <select asp-for="VenueID" class="form-control" asp-items="@(new SelectList(string.Empty, "VenueID", "VenueName"))" disabled></select>
+               <select asp-for="VenueID" class="form-control" asp-items="@(new SelectList(string.Empty, "VenueID", "VenueName"))" ></select>
 @*               <select asp-for="VenueID" class="form-control" asp-items="e@(new SelectList(Model.Venues, "VenueID", "VenueName", Model.SelectedVenueID))"></select>
 *@
                 <span asp-validation-for="VenueID" class="text-danger"></span>
@@ -36,7 +36,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label" asp-for="BookingDate">BookingDate</label>
-            <input asp-for="BookingDate" id="BookingDate" type="text" class="form-control" value="@dates.ToString("yyyy-MM-dd")" disabled/>
+            <input asp-for="BookingDate" id="BookingDate" type="text" class="form-control" value="@dates.ToString("yyyy-MM-dd")" />
 @*             <input asp-for="BookingDate" id="BookingDate" type="text" class="form-control" value="@preselectedDate" />
 *@
                 <span asp-validation-for="BookingDate" class="text-danger"></span>

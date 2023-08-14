@@ -12,7 +12,7 @@ using EventApplicationCore.Interface;
 
 namespace EventApplicationCore.Controllers
 {
-    [ValidateUserSession]
+    
     public class DashboardController : Controller
     {
         private readonly IDashboard _IDashboard;
