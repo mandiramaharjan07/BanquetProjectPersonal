@@ -1,0 +1,7 @@
+D:\6th sem\Project\ASP.NET-CORE-MVC-Project-Event-Management-master\EventApplicationCore\obj\Debug\net461\EventApplicationCore.csproj.AssemblyReference.cache
+D:\6th sem\Project\ASP.NET-CORE-MVC-Project-Event-Management-master\EventApplicationCore\obj\Debug\net461\EventApplicationCore.csproj.SuggestedBindingRedirects.cache
+D:\6th sem\Project\ASP.NET-CORE-MVC-Project-Event-Management-master\EventApplicationCore\obj\Debug\net461\EventApplicationCore.exe.config
+D:\6th sem\Project\ASP.NET-CORE-MVC-Project-Event-Management-master\EventApplicationCore\obj\Debug\net461\EventApplicationCore.GeneratedMSBuildEditorConfig.editorconfig
+D:\6th sem\Project\ASP.NET-CORE-MVC-Project-Event-Management-master\EventApplicationCore\obj\Debug\net461\EventApplicationCore.AssemblyInfoInputs.cache
+D:\6th sem\Project\ASP.NET-CORE-MVC-Project-Event-Management-master\EventApplicationCore\obj\Debug\net461\EventApplicationCore.AssemblyInfo.cs
+D:\6th sem\Project\ASP.NET-CORE-MVC-Project-Event-Management-master\EventApplicationCore\obj\Debug\net461\EventApplicationCore.csproj.CoreCompileInputs.cache

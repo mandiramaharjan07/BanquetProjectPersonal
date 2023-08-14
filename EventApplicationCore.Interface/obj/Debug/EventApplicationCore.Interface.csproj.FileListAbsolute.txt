@@ -1,0 +1,9 @@
+D:\6th sem\Project\ASP.NET-CORE-MVC-Project-Event-Management-master\EventApplicationCore.Interface\bin\Debug\EventApplicationCore.Interface.dll
+D:\6th sem\Project\ASP.NET-CORE-MVC-Project-Event-Management-master\EventApplicationCore.Interface\bin\Debug\EventApplicationCore.Interface.pdb
+D:\6th sem\Project\ASP.NET-CORE-MVC-Project-Event-Management-master\EventApplicationCore.Interface\bin\Debug\EventApplicationCore.Model.dll
+D:\6th sem\Project\ASP.NET-CORE-MVC-Project-Event-Management-master\EventApplicationCore.Interface\bin\Debug\EventApplicationCore.Model.pdb
+D:\6th sem\Project\ASP.NET-CORE-MVC-Project-Event-Management-master\EventApplicationCore.Interface\obj\Debug\EventApplicationCore.Interface.csproj.AssemblyReference.cache
+D:\6th sem\Project\ASP.NET-CORE-MVC-Project-Event-Management-master\EventApplicationCore.Interface\obj\Debug\EventApplicationCore.Interface.csproj.CoreCompileInputs.cache
+D:\6th sem\Project\ASP.NET-CORE-MVC-Project-Event-Management-master\EventApplicationCore.Interface\obj\Debug\EventApplicationCore.Interface.csproj.CopyComplete
+D:\6th sem\Project\ASP.NET-CORE-MVC-Project-Event-Management-master\EventApplicationCore.Interface\obj\Debug\EventApplicationCore.Interface.dll
+D:\6th sem\Project\ASP.NET-CORE-MVC-Project-Event-Management-master\EventApplicationCore.Interface\obj\Debug\EventApplicationCore.Interface.pdb
