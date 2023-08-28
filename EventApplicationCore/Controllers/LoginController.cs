@@ -22,8 +22,9 @@ namespace EventApplicationCore.Controllers
         }
 
         [HttpGet]
-        public ActionResult Login()
+        public ActionResult Login(string returnUrl = "")
         {
+            ViewBag.returnurl = returnUrl;
             return View();
         }
 
@@ -54,6 +55,10 @@ namespace EventApplicationCore.Controllers
                             HttpContext.Session.SetString("UserID", Convert.ToString(result.ID));
                             HttpContext.Session.SetString("RoleID", Convert.ToString(result.RoleID));
                             HttpContext.Session.SetString("Username", Convert.ToString(result.Username));
+                            if (!string.IsNullOrEmpty(loginViewModel.returnUrl))
+                            {
+                                return Redirect(loginViewModel.returnUrl);
+                            }
                             if (RoleID == 1)
                             {
                                 return RedirectToAction("Dashboard", "Admin");

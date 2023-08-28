@@ -13,5 +13,6 @@ namespace EventApplicationCore.Model
         [Required(ErrorMessage = "Password Required")]
         public string Password { get; set; }
 
+        public string returnUrl { get; set; }
     }
 }

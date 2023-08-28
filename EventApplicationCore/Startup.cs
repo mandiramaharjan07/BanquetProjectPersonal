@@ -56,7 +56,8 @@ namespace EventApplicationCore
             });
 
             // For Setting Session Timeout
-            services.AddSession(options => {
+            services.AddSession(options =>
+            {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
                 options.CookieName = ".EventCore";
             });
@@ -116,7 +117,7 @@ namespace EventApplicationCore
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Login}/{action=Login}/{id?}");
+ template: "{controller=customer}/{action=dashboard}/{id?}");
             });
         }
 

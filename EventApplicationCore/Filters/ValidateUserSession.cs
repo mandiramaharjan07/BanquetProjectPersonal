@@ -33,14 +33,15 @@ namespace EventApplicationCore.Filters
             }
             else
             {
+                var redirectpath = context.HttpContext.Request.Path.ToString() + context.HttpContext.Request.QueryString.ToString();
                 ViewResult result = new ViewResult();
                 result.ViewName = "Error";
 
                 var controller = context.Controller as Controller;
                 controller.ViewData["ErrorMessage"] = "You Session has been Expired";
                 controller.HttpContext.Session.Clear();
-                context.Result = result;
 
+                context.Result = new RedirectResult("/Login/Login?returnUrl=" + redirectpath); ;
             }
         }
     }
