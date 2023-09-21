@@ -12,9 +12,8 @@
 	transform: translateY(-50%);
 }
 
-#booking {
+#booking
 	font-family: 'Imprima', sans-serif;
-	background-image: url('/images/background.jpg');
 	background-size: cover;
 	background-position: center;
 }

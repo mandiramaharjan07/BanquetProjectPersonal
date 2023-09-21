@@ -4,41 +4,48 @@
 }
 
 
+<div style="margin-top:100px">
+    @if(Model.Count >0)
+    {
+        <div style="text-align:center">
+            <h2>We found @Model.Count banquets and Event hall available on your search </h2>
+            </div>
+            <br />
+            <hr />
+    <div class="container-fluid"  >
 
-
-<div>
-    <div class="row" style="display: flex;justify-content: center;">
-
+        <div class="row">
 
         @foreach (var data in Model)
         {
-            <div class="col-md-3">
-                <div class="card">
-                    <h3 class="card-header">@data.VenueName</h3>
-                    @* <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <h6 class="card-subtitle text-muted">Support card subtitle</h6>
-                </div>*@
-                    <img src="@data.VenueFilePath" style="width: 100%; height: auto;">
+            <div class="col-md-4"> 
+            <div class="wrapper">
+                    <div class="container" >
 
-                    <div class="card-body">
-                        <p class="card-text"> Hello Mandira</p>
-                    </div>
-                    @* <ul class="list-group list-group-flush">
-                <li class="list-group-item">Cras justo odio</li>
-                <li class="list-group-item">Dapibus ac facilisis in</li>
-                <li class="list-group-item">Vestibulum at eros</li>
-                </ul>*@
-                    <div class="card-body" id="temp">
-                        <div class="form-btn">
-                            <button id="Submit12" data-id="@data.VenueID" class="submit-btn">Book Now</button>
+                        <div class="top" style=" background: url(@data.VenueFilePath) no-repeat center center;"></div>
+                    <div class="bottom">
+                        <div class="left">
+                            <div class="details">
+                                    <h1>@data.VenueName</h1>
+                                        <p style="font-family:'Bookman Old Style'">
+                                            <h3> Rs @data.VenueCost /-</h3>
+
+                                            <div class="buy">    <button id="Submit12" data-id="@data.VenueID" class=" btn btn-success submit-btn ">Book Now</button></div>
+                                        </p>
+                            </div>
                         </div>
-                        @*                        <a href="@{Url.Action('BookingVenue','Booking')}" class="card-link">Book </a>
-                    *@
+                       
                     </div>
-
+                </div>
+                <div class="inside">
+                    <div class="icon"><i class="fa fa-eye"></i></div>
+                    <div class="contents">
+                                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+                    </div>
                 </div>
             </div>
+           </div>
+          
 
             @*  <div>
         <div class="col-3">
@@ -49,8 +56,19 @@
         </div>
         </div>*@
         }
-
+        </div>
     </div>
+    }
+  else  {
+      <div style="text-align:center"> 
+      <h2> No Event halls or banquets found for you Location and date! Please try other dates or Location</h2>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+   </div> 
+  }
 
 
     @*
@@ -70,11 +88,11 @@
     </div>
     </div>*@
     <script>
-        $("#Submit12").click(function() {
+        $("#Submit12").click(function () {
             debugger
-            var id= $(this).data("id")
-            var date= $('#datepicker').val()
-            window.location.href = '/Booking/BookingVenue?id='+ id +"&date="+date;
+            var id = $(this).data("id")
+            var date = $('#datepicker').val()
+            window.location.href = '/Booking/BookingVenue?id=' + id + "&date=" + date;
         });
 
 
