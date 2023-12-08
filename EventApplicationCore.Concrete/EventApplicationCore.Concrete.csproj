@@ -143,6 +143,7 @@
     <Compile Include="BookFoodConcrete.cs" />
     <Compile Include="BookingLightConcrete.cs" />
     <Compile Include="BookingVenueConcrete.cs" />
+    <Compile Include="AdminDashboardConcrete.cs" />
     <Compile Include="DashboardConcrete.cs" />
     <Compile Include="CityConcrete.cs" />
     <Compile Include="CountryConcrete.cs" />

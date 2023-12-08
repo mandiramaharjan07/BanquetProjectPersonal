@@ -26,10 +26,48 @@
                 <span asp-validation-for="VenueCost" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label class="control-label" asp-for="Location">Location </label>
+                <input asp-for="Location" type="text" class="form-control" />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="ShortDescription">Venue Short Description</label>
+                <input asp-for="ShortDescription" type="text" class="form-control" />
+                <span asp-validation-for="ShortDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="LongDescription">Venue Long Description</label>
+                <input asp-for="LongDescription" type="text" class="form-control" />
+                <span asp-validation-for="LongDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <div class="controls">
                     <label class="control-label">Upload Venue</label>
                     <input required type="file" title="Please Upload Venue" name="files" multiple />
                 </div>
+            </div>  <div class="form-group">
+                <div class="controls">
+                    <label class="control-label">Upload Venue Photo</label>
+                    <input required type="file" title="Please Upload Venue" name="files" multiple />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="controls">
+                    <label class="control-label">Upload Venue Second Photo</label>
+                    <input required type="file" title="Please Upload Venue" name="files" multiple />
+                </div>
+            </div>
+            <div id="map" style="height: 400px;"></div>
+            <button id="getLocationBtn">Get Location Details</button>
+            <div class="form-group">
+                <label class="control-label" asp-for="Latitude">Latitude</label>
+                <input asp-for="Latitude" type="text" class="form-control" />
+                <span asp-validation-for="Latitude" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="Longtitude">Longtitude</label>
+                <input asp-for="Longtitude" type="text" class="form-control" />
+                <span asp-validation-for="Longtitude" class="text-danger"></span>
             </div>
 
             <div class="form-actions">
@@ -45,25 +83,48 @@
 
 
     <script type="text/javascript">
-    function CheckVenueNameExists()
-    {
-        var url = '@Url.Content("~/")' + "Venue/CheckVenueNameExists";
-        var source = "#VenueName";
-        $.post(url, { venueName: $(source).val() },
-            function (data)
-                {
-                    if (data)
-                    {
+        function CheckVenueNameExists() {
+            var url = '@Url.Content("~/")' + "Venue/CheckVenueNameExists";
+            var source = "#VenueName";
+            $.post(url, { venueName: $(source).val() },
+                function(data) {
+                    if (data) {
                         $(source).val('');
                         alert("VenueName Already Used try unique one!");
                     }
-                    else
-                    {
+                    else {
 
                     }
                 });
-    }
+        }
 
+        // Create a map
+        var map = L.map('map').setView([27.7172, 85.3240], 13);
+
+        // Add an OSM tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Add a marker with a popup
+        var marker = L.marker([51.5, -0.09]).addTo(map).bindPopup("Select a location");
+
+        // Click event listener for the map to set marker's location
+        map.on('click', function(e) {
+            marker.setLatLng(e.latlng).bindPopup("Selected location: " + e.latlng.toString()).openPopup();
+        });
+
+        // Button click event to get location details
+        $('#getLocationBtn').on('click', function() {
+            var location = marker.getLatLng();
+            $('#Latitude').val(location.lat);
+            $('#Longtitude').val(location.lng);
+            $('#locationDetails').html('Latitude: ' + location.lat + '<br>Longitude: ' + location.lng);
+            // You can use this information to fetch more details about the location using APIs like reverse geocoding, etc.
+        });
     </script>
+
+
+
 
 </div>

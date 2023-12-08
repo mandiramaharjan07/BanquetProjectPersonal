@@ -89,12 +89,12 @@ namespace EventApplicationCore.Concrete
 
             var BookingDT = (from BD in _context.BookingDetails
                              where BD.BookingNo == BookingNo
-                             select new { BD.BookingNo, BD.BookingDate, BD.BookingID }).Single();
+                             select new { BD.BookingNo, BD.BookingDate, BD.BookingID ,BD.AdvancePayment}).Single();
 
             objbooking.BookingVenue = (from BD in _context.BookingVenue
                                        join Vn in _context.Venue on BD.VenueID equals Vn.VenueID
                                        where BD.BookingID == BookingDT.BookingID
-                                       select new Venue { VenueName = Vn.VenueName, VenueCost = Vn.VenueCost }).SingleOrDefault();
+                                       select new Venue { VenueName = Vn.VenueName, VenueCost = Vn.VenueCost}).SingleOrDefault();
 
             objbooking.BookingEquipment = (from BD in _context.BookingEquipment
                                            join Eq in _context.Equipment on BD.EquipmentID equals Eq.EquipmentID
@@ -174,7 +174,8 @@ namespace EventApplicationCore.Concrete
                 TotalFoodCost = TotalFoodCost,
                 TotalFlowerCost = TotalFlowerCost,
                 TotalLightCost = TotalLightCost,
-                TotalAmount = TotalAmount
+                TotalAmount = TotalAmount,
+                AdvanceAmount= BookingDT.AdvancePayment
             };
 
              objbooking.BillingModel = billingmodel;

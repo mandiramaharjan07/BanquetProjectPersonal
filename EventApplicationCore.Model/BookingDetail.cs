@@ -19,6 +19,7 @@ namespace EventApplicationCore.Model
         public string BookingApproval { get; set; }
         public DateTime? BookingApprovalDate { get; set; }
         public string BookingCompletedFlag { get; set; }
+        public decimal  AdvancePayment { get; set; }
     }
 
     [NotMapped]
@@ -31,5 +32,6 @@ namespace EventApplicationCore.Model
         public string CreatedDate { get; set; }
         public string BookingApproval { get; set; }
         public string BookingApprovalDate { get; set; }
+        public decimal AdvancePayment { get; set; }
     }
 }

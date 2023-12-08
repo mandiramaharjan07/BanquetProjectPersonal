@@ -11,6 +11,8 @@ namespace EventApplicationCore.Interface
     {
         bool checkBookingAvailability(BookingVenue objBV);
         int BookEvent(BookingDetails BookingDetail);
+         void UpdateAdvance(int bookingId, decimal amount);
+
         int CancelBooking(int? BookingID);
         int? BookVenue(BookingVenue objBV);
         IEnumerable<BookingDetails> ShowBookingDetail(int UserID);

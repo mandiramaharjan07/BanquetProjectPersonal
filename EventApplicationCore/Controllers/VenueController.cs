@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace EventApplicationCore.Controllers
@@ -37,12 +38,12 @@ namespace EventApplicationCore.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Add(Venue Venue)
         {
-            var newFileName = string.Empty;
+            List<string> newFileName = new List<string>();
 
             if (HttpContext.Request.Form.Files != null)
             {
                 var fileName = string.Empty;
-                string PathDB = string.Empty;
+                List<string> PathDB = new List<string>();
 
                 var files = HttpContext.Request.Form.Files;
 
@@ -66,9 +67,9 @@ namespace EventApplicationCore.Controllers
                         fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
                         var myUniqueFileName = Convert.ToString(Guid.NewGuid());
                         var FileExtension = Path.GetExtension(fileName);
-                        newFileName = myUniqueFileName + FileExtension;
-                        fileName = Path.Combine(_environment.WebRootPath, "VenueImages") + $@"\{newFileName}";
-                        PathDB = "VenueImages/" + newFileName;
+                        newFileName.Add((myUniqueFileName + FileExtension).ToString());
+                        fileName = Path.Combine(_environment.WebRootPath, "VenueImages") + $@"\{myUniqueFileName + FileExtension}";
+                        PathDB.Add( "VenueImages/" + myUniqueFileName + FileExtension);
                         using (FileStream fs = System.IO.File.Create(fileName))
                         {
                             file.CopyTo(fs);
@@ -79,14 +80,28 @@ namespace EventApplicationCore.Controllers
 
                 Venue objvenue = new Venue
                 {
-                    VenueFilename = newFileName,
-                    VenueFilePath = PathDB,
+                    VenueFilename = newFileName[0],
+                    VenueFilePath = PathDB[0],
                     VenueID = 0,
                     VenueName = Venue.VenueName,
                     VenueCost = Venue.VenueCost,
                     Createdate = DateTime.Now,
-                    Createdby = Convert.ToInt32(HttpContext.Session.GetString("UserID"))
+                    Location=Venue.Location,
+                    Createdby = Convert.ToInt32(HttpContext.Session.GetString("UserID")),
+                    ShortDescription=Venue.ShortDescription,
+                    LongDescription=Venue.LongDescription,
+                    Latitude=Venue.Latitude,
+                    Longtitude=Venue.Longtitude
+                   
                 };
+                if(PathDB.Count>1)
+                {
+                    objvenue.ImageOne = PathDB[1];
+                }
+                if (PathDB.Count > 2)
+                {
+                    objvenue.ImageTwo = PathDB[2];
+                }
 
                 _IVenue.SaveVenue(objvenue);
 
@@ -226,7 +241,11 @@ namespace EventApplicationCore.Controllers
                     VenueName = Venue.VenueName,
                     VenueCost = Venue.VenueCost,
                     Createdate = DateTime.Now,
-                    Createdby = Convert.ToInt32(HttpContext.Session.GetString("UserID"))
+                    Createdby = Convert.ToInt32(HttpContext.Session.GetString("UserID")),
+                    ShortDescription = Venue.ShortDescription,
+                    LongDescription = Venue.LongDescription,
+                    ImageOne = Venue.ImageOne,
+                    ImageTwo = Venue.ImageTwo
                 };
 
                 _IVenue.UpdateVenue(objvenue);

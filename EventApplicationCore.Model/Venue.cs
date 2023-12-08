@@ -28,5 +28,12 @@ namespace EventApplicationCore.Model
         public DateTime? Createdate { get; set; }
         public string Location { get; set; }
 
+        public string ShortDescription { get; set; }
+        public string LongDescription { get; set; }  
+        public string ImageOne { get; set; }
+        public string ImageTwo { get; set; }
+        public decimal Latitude { get; set; }
+        public decimal Longtitude { get; set; }
+
     }
 }

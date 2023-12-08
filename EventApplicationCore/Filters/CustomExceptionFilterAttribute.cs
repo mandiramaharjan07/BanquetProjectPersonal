@@ -14,7 +14,8 @@ namespace EventApplicationCore.Filters
     {
         public override void OnException(ExceptionContext context)
         {
-            context.Result = new RedirectResult("/Error/Error");
+            return;
+            //context.Result = new RedirectResult("/Error/Error");
         }
     }
 }

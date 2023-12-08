@@ -121,3 +121,5 @@ D:\6th sem\Project\ASP.NET-CORE-MVC-Project-Event-Management-master\EventApplica
 D:\6th sem\Project\ASP.NET-CORE-MVC-Project-Event-Management-master\EventApplicationCore\obj\Debug\net48\EventApplicationCore.csproj.CopyComplete
 D:\6th sem\Project\ASP.NET-CORE-MVC-Project-Event-Management-master\EventApplicationCore\obj\Debug\net48\EventApplicationCore.exe
 D:\6th sem\Project\ASP.NET-CORE-MVC-Project-Event-Management-master\EventApplicationCore\obj\Debug\net48\EventApplicationCore.pdb
+D:\6th sem\Project\ASP.NET-CORE-MVC-Project-Event-Management-master\EventApplicationCore\bin\Debug\net48\Microsoft.Bcl.AsyncInterfaces.dll
+D:\6th sem\Project\ASP.NET-CORE-MVC-Project-Event-Management-master\EventApplicationCore\bin\Debug\net48\Stripe.net.dll

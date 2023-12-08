@@ -141,12 +141,16 @@
             "Microsoft.VisualStudio.Web.BrowserLink": {
               "target": "Package",
               "version": "[1.1.2, )"
+            },
+            "Stripe.net": {
+              "target": "Package",
+              "version": "[43.4.0, )"
             }
           },
           "imports": [
             "portable-net45+win8+wp8+wpa81"
           ],
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.316\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.320\\RuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {

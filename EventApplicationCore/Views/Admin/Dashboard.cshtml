@@ -1,3 +1,539 @@
-﻿@{
+﻿@model EventApplicationCore.Model.VenueInformation
+@{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+<style>
+    /* Additional CSS for styling */
+    .credit-card {
+        margin-top: 40px;
+    }
+
+    .card {
+        width: 18rem;
+        margin-bottom: 20px;
+    }
+
+    .total-card {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+    .available-card {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+    .queued-card {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+    .chart-container {
+        /*        width: 30%;
+        */ display: inline-block;
+        vertical-align: top; /* Aligns the charts at the top */
+    }
+
+   /* .chart {
+                width: 100%;
+            }*/
+</style>
+@{
+    var ven = Model.piedata
+                    .GroupBy(b => b.VenueName).ToList();
+
+    var test = ven.Select(a => new
+    {
+        labels = a.Key,
+        values = a.Sum(gs => gs.VenueCost).Value
+    });
+    var mBYMo = Model.piedata
+        .GroupBy(b => b.BookingDate.Value.ToString("MMMM"))
+        //.Select(g => new
+        //{
+        //    Label = g.Key,
+        //    Value = g.Sum(item => item.VeneuCost)
+        //})
+        .ToList();
+    var testtts = mBYMo.Select(a => new
+    {
+        labels = a.Key,
+        values = a.Sum(gs => gs.VenueCost).Value
+    });
+
+
+    // Flower
+    var flower = Model.flowerpie
+                    .GroupBy(b => b.FlowerName).ToList();
+
+    var testflower = flower.Select(a => new
+    {
+        labels = a.Key,
+        values = a.Sum(gs => gs.FlowerCost).Value
+    });
+    var mBYMos = Model.flowerpie
+        .GroupBy(b => b.BookingDate.Value.ToString("MMMM"))
+        //.Select(g => new
+        //{
+        //    Label = g.Key,
+        //    Value = g.Sum(item => item.VeneuCost)
+        //})
+        .ToList();
+    var testttsflower = mBYMos.Select(a => new
+    {
+        labels = a.Key,
+        values = a.Sum(gs => gs.FlowerCost).Value
+    });
+
+
+    //Equipment
+
+       var equipment = Model.equipmentpie
+                    .GroupBy(b => b.EquipmentName).ToList();
+
+    var testequipment = equipment.Select(a => new
+    {
+        labels = a.Key,
+        values = a.Sum(gs => gs.EquipmentCost).Value
+    });
+    var mBYMoss = Model.equipmentpie
+        .GroupBy(b => b.BookingDate.Value.ToString("MMMM"))
+        //.Select(g => new
+        //{
+        //    Label = g.Key,
+        //    Value = g.Sum(item => item.VeneuCost)
+        //})
+        .ToList();
+    var testttsequipment = mBYMoss.Select(a => new
+    {
+        labels = a.Key,
+        values = a.Sum(gs => gs.EquipmentCost).Value
+    });
+
+
+
+    //Light
+
+       var light = Model.lightpie
+                    .GroupBy(b => b.LightName).ToList();
+
+    var testlight = light.Select(a => new
+    {
+        labels = a.Key,
+        values = a.Sum(gs => gs.LightCost).Value
+    });
+    var mBYMosss = Model.lightpie
+        .GroupBy(b => b.BookingDate.Value.ToString("MMMM"))
+        //.Select(g => new
+        //{
+        //    Label = g.Key,
+        //    Value = g.Sum(item => item.VeneuCost)
+        //})
+        .ToList();
+    var testttslight = mBYMosss.Select(a => new
+    {
+        labels = a.Key,
+        values = a.Sum(gs => gs.LightCost).Value
+    });
+
+
+    var abc = 0;
+}
+<div class="container">
+    <div class="row">
+        <!-- Total Credit Card -->
+        <div class="col-sm-4">
+            <div class="card total-card">
+                <div class="card-body" style="height: 150px;  font-size: 20px; border-radius: 10px; background-color: #3498db; color: #fff; text-align: center; padding: 10px;">
+                    <h5 class="card-title" style="font-size: 18px; margin-bottom: 5px;">Total Venue</h5>
+                    <p class="card-text" style="font-weight: bold; font-size: 58px; margin: 0;">@Model.TotalVenues</p>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card available-card">
+                <div class="card-body" style="height: 150px;  font-size: 20px; border-radius: 10px; background-color: #3498db; color: #fff; text-align: center; padding: 10px;">
+                    <h5 class="card-title" style="font-size: 18px; margin-bottom: 5px;">Available Venue</h5>
+                    <p class="card-text" style="font-weight: bold; font-size: 58px; margin: 0;">@Model.AvailableVenues</p>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card queued-card">
+                <div class="card-body" style="height: 150px;  font-size: 20px; border-radius: 10px; background-color: #3498db; color: #fff; text-align: center; padding: 10px;">
+                    <h5 class="card-title" style="font-size: 18px; margin-bottom: 5px;">Booked Venue</h5>
+                    <p class="card-text" style="font-weight: bold; font-size: 58px; margin: 0;">@Model.BookedVenues</p>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+    <div class="chart" style="max-width:100%;">
+        <br /><br />
+          <h1>Venue Revenue</h1>
+        <div class="chart-container">
+           <canvas id="myPieChart" style="max-width: 500px; height: 500px;"></canvas>
+        </div>
+        <div class="chart-container">
+            <h1>Total Venue Revenue</h1>
+            <canvas id="myHorizontalBarChart" style="max-width: 500px; height: 500px;"></canvas>
+        </div>
+    </div>
+    <div class="chart" style="max-width:100%;">
+        <div class="chart-container">
+@*            <h1>Flower Revenue</h1>
+*@            <canvas id="myPieChartFlower" style="max-width: 500px; height: 500px;"></canvas>
+        </div>
+        <div class="chart-container">
+            <h1>Total Flower Revenue</h1>
+            <canvas id="myHorizontalBarChartFlower" style="max-width: 500px; height: 500px;"></canvas>
+        </div>
+    </div>
+    <div class="chart" style="max-width:100%;">
+        <div class="chart-container">
+@*            <h1>Equipment Revenue</h1>
+*@            <canvas id="myPieChartEquipment" style="max-width: 500px; height: 500px;"></canvas>
+        </div>
+        <div class="chart-container">
+            <h1>Total Equipment Revenue</h1>
+            <canvas id="myHorizontalBarChartEquipment" style="max-width: 500px; height: 500px;"></canvas>
+        </div>
+    </div> 
+    <div class="chart" style="max-width:100%;">
+        <div class="chart-container">
+@*            <h1>Light Revenue</h1>
+*@            <canvas id="myPieChartLight" style="max-width: 500px; height: 500px;"></canvas>
+        </div>
+        <div class="chart-container">
+            <h1>Total Light Revenue</h1>
+            <canvas id="myHorizontalBarChartLight" style="max-width: 500px; height: 500px;"></canvas>
+        </div>
+    </div>
+
+
+    <div>
+
+      <canvas id="lineChart" width="400" height="400"></canvas>
+    </div>
+
+
+
+</div>
+
+
+<script>
+
+    // Define your data (replace this with your actual data)
+    var dataFromController = {
+        labels: [@Html.Raw(string.Join(", ", test.Select(a => $"'{a.labels}'")))],
+        values: [@Html.Raw(string.Join(", ", test.Select(a => a.values)))]
+    };
+
+    // Function to create the pie chart
+    function createPieChart(data) {
+        var ctx = document.getElementById('myPieChart').getContext('2d');
+        var myPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: data.labels,
+                datasets: [{
+                    data: data.values,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.7)',
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(255, 206, 86, 0.7)',
+                        'rgba(75, 192, 192, 0.7)',
+                        'rgba(153, 102, 255, 0.7)',
+                    ],
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+        });
+    }
+
+    // Call the function with your data
+    createPieChart(dataFromController);
+
+
+    function createHorizontalBarChart(data) {
+        var ctxa = document.getElementById('myHorizontalBarChart').getContext('2d');
+        var myHorizontalBarChart = new Chart(ctxa, {
+            type: 'bar',
+            data: {
+                labels: data.labels, // An array of labels
+                datasets: [{
+                    data: data.values, // An array of values
+                    backgroundColor: 'rgba(54, 162, 235, 0.7',
+                }]
+            },
+            options: {
+                // Add any customization options here
+            }
+        });
+    }
+
+    // Example data from the controller
+    var dataFromControlleSSSr = {
+        labels: [@Html.Raw(string.Join(", ", testtts.Select(a => $"'{a.labels}'")))],
+        values: [@Html.Raw(string.Join(", ", testtts.Select(a => a.values)))]
+    };
+
+    // Call the function to create the horizontal bar chart
+    createHorizontalBarChart(dataFromControlleSSSr);
+
+    ///FLower piechart
+
+
+
+
+    var dataFromControllers = {
+        labels: [@Html.Raw(string.Join(", ", testflower.Select(a => $"'{a.labels}'")))],
+        values: [@Html.Raw(string.Join(", ", testflower.Select(a => a.values)))]
+    };
+
+    // Function to create the pie chart
+    function createPieChartFlower(data) {
+        var ctx = document.getElementById('myPieChartFlower').getContext('2d');
+        var myPieCharts = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: data.labels,
+                datasets: [{
+                    data: data.values,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.7)',
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(255, 206, 86, 0.7)',
+                        'rgba(75, 192, 192, 0.7)',
+                        'rgba(153, 102, 255, 0.7)',
+                    ],
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+        });
+    }
+
+    // Call the function with your data
+    createPieChartFlower(dataFromControllers);
+
+
+    function createHorizontalBarChartFlowers(data) {
+        var ctxa = document.getElementById('myHorizontalBarChartFlower').getContext('2d');
+        var myHorizontalBarCharts = new Chart(ctxa, {
+            type: 'bar',
+            data: {
+                labels: data.labels, // An array of labels
+                datasets: [{
+                    data: data.values, // An array of values
+                    backgroundColor: 'rgba(54, 162, 235, 0.7',
+                }]
+            },
+            options: {
+                // Add any customization options here
+            }
+        });
+    }
+
+    // Example data from the controller
+    var dataFromControlleSSSrr = {
+        labels: [@Html.Raw(string.Join(", ", testttsflower.Select(a => $"'{a.labels}'")))],
+        values: [@Html.Raw(string.Join(", ", testttsflower.Select(a => a.values)))]
+    };
+
+    // Call the function to create the horizontal bar chart
+    createHorizontalBarChartFlowers(dataFromControlleSSSrr);
+
+
+
+    
+    ///Equipment piechart
+
+
+
+
+    var dataFromControllerss = {
+        labels: [@Html.Raw(string.Join(", ", testequipment.Select(a => $"'{a.labels}'")))],
+        values: [@Html.Raw(string.Join(", ", testequipment.Select(a => a.values)))]
+    };
+
+    // Function to create the pie chart
+    function createPieChartEquipment(data) {
+        var ctx = document.getElementById('myPieChartEquipment').getContext('2d');
+        var myPieChartss = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: data.labels,
+                datasets: [{
+                    data: data.values,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.7)',
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(255, 206, 86, 0.7)',
+                        'rgba(75, 192, 192, 0.7)',
+                        'rgba(153, 102, 255, 0.7)',
+                    ],
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+        });
+    }
+
+    // Call the function with your data
+    createPieChartEquipment(dataFromControllerss);
+
+
+    function createHorizontalBarChartEquipment(data) {
+        var ctxa = document.getElementById('myHorizontalBarChartEquipment').getContext('2d');
+        var myHorizontalBarChartss = new Chart(ctxa, {
+            type: 'bar',
+            data: {
+                labels: data.labels, // An array of labels
+                datasets: [{
+                    data: data.values, // An array of values
+                    backgroundColor: 'rgba(54, 162, 235, 0.7',
+                }]
+            },
+            options: {
+                // Add any customization options here
+            }
+        });
+    }
+
+    // Example data from the controller
+    var dataFromControlleSSSrrr = {
+        labels: [@Html.Raw(string.Join(", ", testttsequipment.Select(a => $"'{a.labels}'")))],
+        values: [@Html.Raw(string.Join(", ", testttsequipment.Select(a => a.values)))]
+    };
+
+    // Call the function to create the horizontal bar chart
+    createHorizontalBarChartEquipment(dataFromControlleSSSrrr);
+
+
+
+
+
+    ///Light piechart
+
+
+
+
+    var dataFromControllersss = {
+        labels: [@Html.Raw(string.Join(", ", testlight.Select(a => $"'{a.labels}'")))],
+        values: [@Html.Raw(string.Join(", ", testlight.Select(a => a.values)))]
+    };
+
+    // Function to create the pie chart
+    function createPieChartLight(data) {
+        var ctx = document.getElementById('myPieChartLight').getContext('2d');
+        var myPieChartsss = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: data.labels,
+                datasets: [{
+                    data: data.values,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.7)',
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(255, 206, 86, 0.7)',
+                        'rgba(75, 192, 192, 0.7)',
+                        'rgba(153, 102, 255, 0.7)',
+                    ],
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+        });
+    }
+
+    // Call the function with your data
+    createPieChartLight(dataFromControllersss);
+
+
+    function createHorizontalBarChartLight(data) {
+        var ctxaa = document.getElementById('myHorizontalBarChartLight').getContext('2d');
+        var myHorizontalBarChartss = new Chart(ctxaa, {
+            type: 'bar',
+            data: {
+                labels: data.labels, // An array of labels
+                datasets: [{
+                    data: data.values, // An array of values
+                    backgroundColor: 'rgba(54, 162, 235, 0.7',
+                }]
+            },
+            options: {
+                // Add any customization options here
+            }
+        });
+    }
+
+    // Example data from the controller
+    var dataFromControlleSSSrrrr = {
+        labels: [@Html.Raw(string.Join(", ", testttslight.Select(a => $"'{a.labels}'")))],
+        values: [@Html.Raw(string.Join(", ", testttslight.Select(a => a.values)))]
+    };
+
+    // Call the function to create the horizontal bar chart
+    createHorizontalBarChartLight(dataFromControlleSSSrrrr);
+
+
+
+
+
+
+
+    //Total Reveneue All (Sum)
+
+
+     var ctxt = document.getElementById('lineChart').getContext('2d');
+
+    // Define your data
+    var linedata = {
+      labels: ['January', 'February', 'March', 'April', 'May','June','July'],
+      datasets: [{
+        label: 'Example Dataset',
+        data: [12, 19, 3, 17, 6],
+        borderColor: 'blue',
+        borderWidth: 1,
+        fill: false
+      },{
+        label: 'Example Dataset2',
+        data: [10, 19, 13, 1, 16],
+        borderColor: 'red',
+        borderWidth: 1,
+        fill: false
+      }]
+    };
+
+    // Create the chart
+    var myLineChart = new Chart(ctxt, {
+      type: 'line',
+      data: linedata,
+      options: {
+        // Customize your chart here
+      }
+    });
+
+</script>
+
+
+
+
+

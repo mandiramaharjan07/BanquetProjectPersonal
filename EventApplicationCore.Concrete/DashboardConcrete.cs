@@ -24,7 +24,7 @@ namespace EventApplicationCore.Concrete
                 var listofcities = (from venue in _context.Venue
                                     join booking in _context.BookingVenue on venue.VenueID equals booking.VenueID into bookings                            
                                     from booking in bookings.DefaultIfEmpty()
-                                    where booking.BookingID == null && venue.Location.Contains(location)
+                                    where booking.BookingID == null && (venue.Location.Contains(location) || venue.VenueName.Contains(location))
                                     select new VenueModel
                                     {
                                         VenueID= venue.VenueID,
@@ -32,7 +32,12 @@ namespace EventApplicationCore.Concrete
                                         VenueCost = venue.VenueCost,
                                         VenueFilename = venue.VenueFilename,
                                         VenueFilePath = venue.VenueFilePath,
-                                        Createdate = venue.Createdate
+                                        Createdate = venue.Createdate,
+                                        Latitude= venue.Latitude,
+                                        Longitude= venue.Longtitude,
+                                        ShortDescription = venue.ShortDescription,
+                                        LongDescription = venue.LongDescription
+                                        
                                     }).Distinct().ToList();
 
                 return listofcities;

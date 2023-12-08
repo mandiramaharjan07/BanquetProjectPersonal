@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
 using System;
+using System.Web;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -41,7 +42,7 @@ namespace EventApplicationCore.Filters
                 controller.ViewData["ErrorMessage"] = "You Session has been Expired";
                 controller.HttpContext.Session.Clear();
 
-                context.Result = new RedirectResult("/Login/Login?returnUrl=" + redirectpath); ;
+                context.Result = new RedirectResult("/Login/Login?returnUrl=" + HttpUtility.UrlEncode(redirectpath)); ;
             }
         }
     }

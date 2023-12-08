@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IBookingDetails.cs" />
+    <Compile Include="_IAdminDashboard.cs" />
     <Compile Include="IDashboard.cs" />
     <Compile Include="IBookEquipment.cs" />
     <Compile Include="IBookFlower.cs" />

@@ -3,6 +3,7 @@ using EventApplicationCore.Interface;
 using EventApplicationCore.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Stripe;
 using System;
 using System.Linq;
 
@@ -15,6 +16,8 @@ namespace EventApplicationCore.Controllers
     {
         private readonly IBookingVenue _IBookingVenue;
         private readonly ITotalbilling _ITotalbilling;
+        private readonly IBookingDetails _IBookingDetails;
+        
         public ShowAllBookingController(IBookingVenue IBookingVenue, ITotalbilling ITotalbilling)
         {
             _IBookingVenue = IBookingVenue;
@@ -79,6 +82,33 @@ namespace EventApplicationCore.Controllers
                 throw;
             }
         }
+
+        public IActionResult PayNow(int BookingID)
+        {
+            ViewData["BookingID"] = BookingID;
+            return View();
+        }
+        [HttpPost]
+         public JsonResult UpdateAdvancePayment(int BookingID,decimal amount,string token)
+        {
+            _IBookingVenue.UpdateAdvance(BookingID, amount);
+            StripeConfiguration.ApiKey = "sk_test_51OH0KJK6WjiGXAoHVZEZMUOJkMhwtcbcqCaofn55k5rJA44YoVrM695UYzBz6TpzrWShtwYloUP3PP4ijQCvfvMq00qBjJgofJ";
+
+            // source is obtained with Stripe.js; see https://stripe.com/docs/payments/accept-a-payment-charges#web-create-token
+            var options = new ChargeCreateOptions
+            {
+                Amount = Convert.ToInt64(amount*100),
+                Currency = "usd",
+                Source = "tok_visa",
+                Description = "advance payment for " + BookingID,
+
+            };
+            var service = new ChargeService();
+            service.Create(options);
+            return Json("Success");
+
+        }
+
 
         [HttpGet]
         public IActionResult ShowOrder(string BookingNo)

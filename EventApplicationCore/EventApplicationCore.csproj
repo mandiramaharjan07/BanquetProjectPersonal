@@ -15,6 +15,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.2" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.2" />
+    <PackageReference Include="Stripe.net" Version="43.4.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +26,10 @@
     <ProjectReference Include="..\EventApplicationCore.Concrete\EventApplicationCore.Concrete.csproj" />
     <ProjectReference Include="..\EventApplicationCore.Interface\EventApplicationCore.Interface.csproj" />
     <ProjectReference Include="..\EventApplicationCore.Model\EventApplicationCore.Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Web" />
   </ItemGroup>
 
 </Project>

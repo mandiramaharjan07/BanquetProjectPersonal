@@ -47,6 +47,13 @@ namespace EventApplicationCore.Concrete
             }
         }
 
+        public void UpdateAdvance(int bookingId, decimal amount)
+        {
+            var entity = _context.BookingDetails.FirstOrDefault(a => a.BookingID == bookingId);
+            entity.AdvancePayment = amount;
+            _context.BookingDetails.Update(entity);
+            _context.SaveChanges();
+        }
         public int BookEvent(BookingDetails BookingDetail)
         {
             try
@@ -63,6 +70,7 @@ namespace EventApplicationCore.Concrete
                     var seq = "BK" + "-" + DateTime.Now.Year + "-" + no;
 
                     BookingDetail.BookingNo = seq;
+                    BookingDetail.AdvancePayment = 0.0M;
                     _context.BookingDetails.Attach(BookingDetail);
                     _context.Entry(BookingDetail).Property(x => x.BookingNo).IsModified = true;
                     _context.SaveChanges();
@@ -227,6 +235,7 @@ namespace EventApplicationCore.Concrete
                                          BookingApprovalDate = tempbooking.BookingApprovalDate == null ? "------" : tempbooking.BookingApprovalDate.Value.ToString("dd/MM/yyyy"),
                                          BookingNo = tempbooking.BookingNo,
                                          BookingID = tempbooking.BookingID,
+                                         AdvancePayment = tempbooking.AdvancePayment,
                                          BookingApproval = tempbooking.BookingApproval == "P" ? "Pending" : tempbooking.BookingApproval == "R" ? "Rejected" : tempbooking.BookingApproval == "C" ? "Cancelled" : "Approved",
                                      });
 

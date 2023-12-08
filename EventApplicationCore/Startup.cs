@@ -81,6 +81,7 @@ namespace EventApplicationCore
             services.AddTransient<ILight, LightConcrete>();
             services.AddTransient<IFlower, FlowerConcrete>();
             services.AddTransient<IDashboard, DashboardConcrete>();
+            services.AddTransient<IAdminDashboard, AdminDashboardConcrete>();
 
             services.AddTransient<IBookingVenue, BookingVenueConcrete>();
             services.AddTransient<IEvent, EventConcrete>();

@@ -173,7 +173,7 @@ namespace EventApplicationCore.Controllers
         private void SetSlider()
         {
             var Images = (from images in _IVenue.ShowAllVenue()
-                          select new Venue { VenueFilename = images.VenueFilename, VenueFilePath = images.VenueFilePath, VenueName = images.VenueName }).ToList();
+                          select new Venue { VenueFilename = images.VenueFilename, VenueFilePath = "http://localhost:5544/"+images.VenueFilePath, VenueName = images.VenueName }).ToList();
 
 
             ViewBag.SliderImages = Images;

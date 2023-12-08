@@ -19,6 +19,7 @@
                     <th>Print</th>
                     <th>Show Order</th>
                     <th>Cancel Booking</th>
+                    <th>Advance Payment </th>
                 </tr>
             </thead>
         </table>
@@ -77,12 +78,21 @@
         {
                             return row.BookingApproval == "Approved" ? "<a href='#' class='btn btn-danger' onclick=CancelBooking('" + row.BookingID + "'); >Cancel Booking</a>": "-----";
                         }
+                    },{
+                        data: null, render: function (data, type, row)
+        {debugger
+                            var bookaprove = row.BookingApproval;
+                            var AdvancePayment = row.AdvancePayment;
+                            return row.BookingApproval == "Approved" ?(AdvancePayment>0?"<label> " +AdvancePayment +"  </label>"  : "<a href='#' class='btn btn-danger' onclick=PayNow('" + row.BookingID + "'); >Pay Now</a>"): "-----";
+                        }
                     },
                 ]
 
             });
         });
-
+function PayNow(BookingID) {
+    window.location.href = 'http://localhost:5544/ShowAllBooking/PayNow?BookingId='+ BookingID;
+}
 
         function CancelBooking(ID)
         {

@@ -19,5 +19,6 @@ namespace EventApplicationCore.Model
         public int? TotalFlowerCost { get; set; }
         public int? TotalLightCost { get; set; }
         public int? TotalAmount { get; set; }
+        public decimal? AdvanceAmount { get; set; }
     }
 }

@@ -2,73 +2,114 @@
 @{
     Layout = null;
 }
+<style>
+    .popup {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+        justify-content: center;
+        align-items: center;
+    }
 
+    .popup-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        position: relative;
+    }
+
+    .close {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        cursor: pointer;
+    }
+
+        .close:hover {
+            color: red;
+        }
+</style>
 
 <div style="margin-top:100px">
-    @if(Model.Count >0)
+    @if (Model.Count > 0)
     {
         <div style="text-align:center">
             <h2>We found @Model.Count banquets and Event hall available on your search </h2>
-            </div>
-            <br />
-            <hr />
-    <div class="container-fluid"  >
+        </div>
+        <br />
+        <hr />
+        <div class="container-fluid">
 
-        <div class="row">
+            <div class="row">
 
-        @foreach (var data in Model)
-        {
-            <div class="col-md-4"> 
-            <div class="wrapper">
-                    <div class="container" >
+                @foreach (var data in Model)
+                {
+                    <div class="col-md-4">
+                        <div class="wrapper" style="height:550px">
+                            <div class="container">
 
-                        <div class="top" style=" background: url(@data.VenueFilePath) no-repeat center center;"></div>
-                    <div class="bottom">
-                        <div class="left">
-                            <div class="details">
-                                    <h1>@data.VenueName</h1>
-                                        <p style="font-family:'Bookman Old Style'">
-                                            <h3> Rs @data.VenueCost /-</h3>
+                                <div class="top">
+                                    <img src="@data.VenueFilePath" style="width:500px; height:350px;">
+                                </div>
+                                <div class="bottom">
+                                    <div class="left">
+                                        <div class="details">
+                                            <h1>@data.VenueName</h1>
+                                            <p style="font-family:'Bookman Old Style'">
+                                                <h3> Rs @data.VenueCost /-</h3>
 
-                                            <div class="buy">    <button id="Submit12" data-id="@data.VenueID" class=" btn btn-success submit-btn ">Book Now</button></div>
-                                        </p>
+                                                <div class="buy">
+                                                    <button id="Submit12" data-id="@data.VenueID" class="Submit12 btn btn-success submit-btn ">Book Now</button>
+                                                    <button id="Submit123" data-id="@data.VenueID" class="Submit123 btn btn-success submit-btn ">View More</button>
+
+
+                                                </div>
+                                            </p>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="inside">
+                                <div class="icon"><i class="fa fa-eye"></i></div>
+                                <div class="contents">
+                                   
+                                        <p>@data.ShortDescription</p>
+                                   
+                                </div>
                             </div>
                         </div>
-                       
                     </div>
-                </div>
-                <div class="inside">
-                    <div class="icon"><i class="fa fa-eye"></i></div>
-                    <div class="contents">
-                                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-                    </div>
-                </div>
+
+
+                    @*  <div>
+            <div class="col-3">
+            <img src="@data.VenueFilePath" width="500" height="600">
+
+            @data.VenueName
+
             </div>
-           </div>
-          
-
-            @*  <div>
-        <div class="col-3">
-        <img src="@data.VenueFilePath" width="500" height="600">
-
-        @data.VenueName
-
+            </div>*@
+                }
+            </div>
         </div>
-        </div>*@
-        }
-        </div>
-    </div>
     }
-  else  {
-      <div style="text-align:center"> 
-      <h2> No Event halls or banquets found for you Location and date! Please try other dates or Location</h2>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-   </div> 
-  }
+    else
+    {
+        <div style="text-align:center">
+            <h2> No Event halls or banquets found for you Location and date! Please try other dates or Location</h2>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+        </div>
+    }
 
 
     @*
@@ -88,13 +129,55 @@
     </div>
     </div>*@
     <script>
-        $("#Submit12").click(function () {
+        $(".Submit12").click(function() {
             debugger
             var id = $(this).data("id")
             var date = $('#datepicker').val()
             window.location.href = '/Booking/BookingVenue?id=' + id + "&date=" + date;
         });
+        $(".Submit123").click(function() {
+            debugger
+            var id = $(this).data("id")
+
+            $.ajax({
+                url: '@Url.Action("ViewMore","Dashboard")',
+                type: 'POST',
+                data: { id: id },
+                dataType: 'html',
+                success: function(data, strStatus) {
+                    debugger
+                    $('body').append(data);
+
+                    const popup = document.getElementById('Viewmorepopup');
+                    const close = document.getElementById('ViewMoreclose');
+
+                    popup.style.display = 'flex'; // Show the popup
+
+
+                    // Function to close the popup when clicking on close button
+                    close.addEventListener('click', function() {
+                        popup.style.display = 'none';
+                        popup.remove()// Hide the popup
+                    });
+
+                    // Function to close the popup when clicking outside the popup
+                    window.addEventListener('click', function(event) {
+                        if (event.target === popup) {
+                            popup.style.display = 'none'; // Hide the popup
+                            popup.remove()// Hide the popup
+
+                        }
+                    });
+                },
+                error: function(error) {
+                    alert("Failed");
+                }
+            });
+        });
+
+
 
 
     </script>
-</div>
+
+

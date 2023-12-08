@@ -7,12 +7,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Dashboard</title>
 
+         <style>
+        /* Additional CSS for styling */
+        .credit-card {
+            margin-top: 40px;
+        }
 
+        .card {
+            width: 18rem;
+            margin-bottom: 20px;
+        }
+
+        .total-card {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .available-card {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .queued-card {
+            background-color: #dc3545;
+            color: #fff;
+        }
+    </style>
 
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
         <link href="~/lib/datetimepicker/jqueryui.css" rel="stylesheet" />
+        _
     </environment>
 
 
@@ -33,6 +59,11 @@
         <script src="~/js/site.js" asp-append-version="true"></script>
         
     </environment>
+     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
     <script>
          $(document).ready(function () {
@@ -101,6 +132,7 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     @RenderSection("Scripts", required: false)
 </body>
